@@ -16,7 +16,9 @@ export function useRealtime() {
 
     try {
       // Connect to SSE endpoint
-      eventSource = new EventSource('http://localhost:3001/api/realtime/updates');
+      const API_BASE = import.meta.env.VITE_API_URL ||
+        (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api');
+      eventSource = new EventSource(`${API_BASE}/realtime/updates`);
 
       eventSource.onopen = () => {
         console.log('✅ Connected to real-time updates');

@@ -19,7 +19,9 @@ export default function PriceChart({ ticker, hours = 24 }) {
   const loadHistory = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3001/api/realtime/history/${ticker}?hours=${hours}`);
+      const API_BASE = import.meta.env.VITE_API_URL ||
+        (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api');
+      const res = await fetch(`${API_BASE}/realtime/history/${ticker}?hours=${hours}`);
       const json = await res.json();
 
       // Transform data for recharts - include both YES and NO prices

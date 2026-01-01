@@ -24,8 +24,15 @@ import { startSimulation, initializePriceHistory } from './services/simulationSe
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// CORS configuration - allow frontend domain
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors()); // Allow requests from frontend
+app.use(cors(corsOptions)); // Allow requests from frontend
 app.use(express.json()); // Parse JSON request bodies
 
 // Request logging (helpful for debugging)
