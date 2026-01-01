@@ -7,7 +7,9 @@
 
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api';
+// Use relative URL for production, localhost for development
+const API_URL = import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? '/api' : 'http://localhost:3001/api');
 
 // Create axios instance with base URL
 const api = axios.create({
@@ -16,6 +18,9 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Export API_URL for use in other files
+export { API_URL };
 
 // Add auth token to requests if available
 api.interceptors.request.use((config) => {
