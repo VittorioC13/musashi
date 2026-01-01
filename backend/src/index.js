@@ -18,6 +18,9 @@ import realtimeRoutes from './routes/realtime.js';
 // Import database to ensure tables are created
 import './database.js';
 
+// Import auto-seed function
+import { autoSeedIfEmpty } from './autoSeed.js';
+
 // Import simulation service
 import { startSimulation, initializePriceHistory } from './services/simulationService.js';
 
@@ -84,6 +87,9 @@ app.listen(PORT, () => {
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
+
+  // Auto-seed database if empty
+  autoSeedIfEmpty();
 
   // Initialize price history and start simulation
   console.log('📊 Initializing price history...');
